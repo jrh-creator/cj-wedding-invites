@@ -17,10 +17,17 @@ dict_guests = {
     "gehrungsMarkus":"Markus, Simone & kinder"
 }
 BASE_DIR = os.path.dirname(__file__)
-ASSETS_DIR = os.path.join(BASE_DIR, "assets")
-INVITES_DIR = os.path.join(BASE_DIR, "invites")
+# Current: INVITES_DIR = os.path.join(BASE_DIR, "invites")
 
-TEMPLATE_FILE = os.path.join(BASE_DIR, "invite_template.html")
+# New: point to repo root
+REPO_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))  # one level up
+INVITES_DIR = os.path.join(REPO_ROOT, "invites")
+
+ASSETS_DIR = os.path.join(REPO_ROOT, "assets")
+
+
+TEMPLATE_FILE = os.path.join(REPO_ROOT, "invite_template.html")
+
 BACKGROUND_IMAGE = "save-the-date.png"
 
 os.makedirs(INVITES_DIR, exist_ok=True)
@@ -67,3 +74,10 @@ for guest in dict_guests.keys():
     print(f"Created invite for {guest_name}: {invite_uuid}")
 
 print("✅ All invites generated.")
+
+# this is the command to add and commit the generated files to git
+x ="""
+git add invites/ invite_template.html generate_invites.py .gitignore
+git commit -m "Add wedding invites"
+git push -u origin main
+"""
